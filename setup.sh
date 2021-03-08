@@ -1,3 +1,5 @@
+# SETUP MINIKUBE
+minikube stop
 minikube start
 
 # METALB
@@ -12,7 +14,9 @@ kubectl apply -f srcs/metalb/metallb.yaml
 # NGINX
 eval $(minikube docker-env) 
 docker build -t my-nginx srcs/nginx/.
+docker build -t my-ftps srcs/ftps/.
 kubectl apply -f srcs/nginx/config.yaml
+kubectl apply -f srcs/ftps/config.yaml
 
 
 minikube dashboard
