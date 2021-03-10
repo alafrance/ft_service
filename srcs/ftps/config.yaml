@@ -4,11 +4,24 @@ metadata:
   name: ftps
   labels:
     run: ftps
+  annotations:
+    metallb.universe.tf/allow-shared-ip: shared
 spec:
   type: LoadBalancer
   ports:
   - port: 21
     name: ftps
+  - port: 30000
+    name: p30
+  - port: 30001
+    name: p31
+  - port: 30002
+    name: p32
+  - port: 30003
+    name: p33
+  - port: 30004
+    name: p34
+
   selector:
     run: ftps
 ---
@@ -16,6 +29,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: ftps
+  annotations:
+    metallb.universe.tf/allow-shared-ip: shared
 spec:
   selector:
     matchLabels:
