@@ -1,8 +1,7 @@
 adduser -D -g 'admin' admin
-echo "admin:password" | chpasswd
+echo "admin:admin" | chpasswd
 openssl req -x509 -nodes -days 365 -subj "/C=FR/ST=FR/L=FR/O=42/CN=ft_services" -newkey rsa:2048 -keyout /etc/ssl/private/pure-ftpd.pem -out /etc/ssl/certs/pure-ftpd.pem
-mv /pure-ftpd.conf /etc
 chmod 777 /etc/ssl/private
-chmod 600 /etc/ssl/private/pure-ftpd.conf
+chmod 600 /etc/ssl/private/pure-ftpd.pem
 /usr/sbin/pure-ftpd -Y 2 -p 30000:30004 -P MINIKUBEIP
 tail -f /dev/null
