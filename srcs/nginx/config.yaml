@@ -1,37 +1,48 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: nginx
-  labels:
-    run: nginx
+  name: my-nginx
+  annotations:
+    metallb.universe.tf/allow-shared-ip: shared
 spec:
-  type: LoadBalancer
   ports:
-  - port: 80
-    name: http
-  - port: 443
-    name: https
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  - name: https
+    port: 443
+    protocol: TCP
+    targetPort: 443
   selector:
-    run: nginx
+    run: my-nginx
+  type: LoadBalancer
+
 ---
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx
+  name: my-nginx
+  annotations:
+    metallb.universe.tf/allow-shared-ip: shared
 spec:
   selector:
     matchLabels:
-      run: nginx
+      run: my-nginx
   replicas: 1
   template:
     metadata:
       labels:
-        run: nginx
+        run: my-nginx
     spec:
+      restartPolicy: Always
       containers:
-      - name: nginx
-        image: my-nginx
+      - name: my-nginx
         imagePullPolicy: Never
+        image: my-nginx
         ports:
-        - containerPort: 443
-        - containerPort: 80
+        - name: http
+          containerPort: 80
+        - name: https
+          containerPort: 443

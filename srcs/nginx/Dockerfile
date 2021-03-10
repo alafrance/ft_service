@@ -1,8 +1,8 @@
 FROM alpine:3.12
 
-RUN apk update && apk add openrc --no-cache && apk add nginx && apk add openssl
+RUN apk update && apk add nginx openrc --no-cache openssl openssh
 
-COPY srcs/ .
+COPY ./srcs/ .
 
 EXPOSE 80 443
 
