@@ -1,6 +1,7 @@
+eval $(minikube docker-env)
 minikube stop
 minikube delete
-minikube start --driver=virtualbox
+minikube start
 
 IP_MINIKUBE=$(minikube ip)
 
