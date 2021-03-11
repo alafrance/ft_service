@@ -18,7 +18,6 @@ function setup()
     eval $(minikube docker-env)
     docker build -t my-$1 ./srcs/$1/
     kubectl apply -f ./srcs/$1/config.yaml
-
 }
 
 function launch()
@@ -30,6 +29,7 @@ function launch()
     setup_metallb
     setup nginx
     setup ftps
+    setup wordpress
     minikube dashboard
 }
 
