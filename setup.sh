@@ -29,6 +29,7 @@ function launch()
     setup_metallb
     setup nginx
     setup ftps
+    setup mysql
     setup wordpress
     minikube dashboard
 }

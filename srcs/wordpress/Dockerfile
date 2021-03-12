@@ -1,17 +1,11 @@
 FROM alpine:3.12
 
 RUN apk update && \
-    apk add nginx && \
-    apk add php7-fpm && \
-    apk add php-mysqli && \
-    apk add openrc && \
-    apk add openssl && \
-    mkdir /run/nginx;
+    apk add nginx openssl openrc php7 php7-fpm php7-mysqli php7-mbstring php7-json php7-session php-phar && \
+    apk add mysql mysql-client
 
 COPY srcs/ .
 
 EXPOSE 5050
-
-CMD ["/bin/sh", "-c", "/usr/sbin/php-fpm7; exec nginx -g 'daemon off;';"]
 
 ENTRYPOINT ["sh", "script.sh"]
